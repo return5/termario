@@ -7,15 +7,15 @@ setmetatable(Body,Object)
 
 _ENV = Body
 
-
-function Body:applyGravity(dt, gravity)
+function Body:checkBoundaries()
 	--TODO
-	return self
+	return true
 end
 
 function Body:update(dt,gravity)
 	self.x = self.x + self.xDir * self.speed * dt
-	self:applyGravity(dt,gravity)
+	self.acc = self.acc - gravity * dt
+	self.y = self.y + self.acc
 	return self
 end
 
