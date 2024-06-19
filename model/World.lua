@@ -19,14 +19,20 @@ local function printWorld(level,start,stop)
 	end
 end
 
-function World:print(center)
-	if center.printX <= printWidth_half then
-		return printWorld(self.level,1,Config.printWidth)
+function World:getLimits(player)
+	if player.printX <= printWidth_half then
+		return 1,Config.printWidth
 	end
-	if center.printX >= #self.level[1] - Config.printWidth_half then
-		return printWorld(self.level,#self.level[1] - Config.printWidth,#self.level[1])
+	if player.printX >= #self.level[1] - Config.printWidth_half then
+		return #self.level[1] - Config.printWidth,#self.level[1]
 	end
-	return printWorld(self.level,center.printX - printWidth_half,center.printX + printWidth_half)
+	return  player.printX - printWidth_half, player.printX + printWidth_half
+
+end
+
+function World:print(player)
+	local start <const>,stop <const> = self:getLimits(player)
+	printWorld(self.level,start,stop)
 end
 
 function World:new(level)
