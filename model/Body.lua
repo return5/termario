@@ -13,15 +13,28 @@ function Body:checkBoundaries()
 	return true
 end
 
+function Body:print(offset)
+	self.printX = self.printX - offset
+	Object.print(self)
+	return self
+end
+
 function Body:applyAcceleration(newAcc,dt)
 	self.acc = self.acc + newAcc
 	self.y = self.y + self.acc * dt
+	self.prevPrintY = self.printY
 	self.printY = floor(self.y)
+	return self
+end
+
+function Body:move(dir)
+	self.dir = dir
 	return self
 end
 
 function Body:update(dt)
 	self.x = self.x + self.xDir * self.speed * dt
+	self.prevPrintX = self.printX
 	self.printX = floor(self.x)
 	return self
 end

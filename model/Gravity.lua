@@ -8,7 +8,7 @@ _ENV = Gravity
 
 function Gravity:applyGravity(body)
 	if self:hasTimeElapsed() then
-		body:applyAcceleration(-self.gravityAcc * self.elapsedTimer,self.elapsedTimer)
+		body:applyAcceleration(self.gravityAcc * self.elapsedTimer,self.elapsedTimer)
 	end
 	return self
 end

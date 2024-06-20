@@ -1,6 +1,6 @@
 require('libs.ncurses.sluacurses')
 
-local Dirs <const> = require('consts.Dirs')
+local Dirs <const> = require('constant.Dirs')
 local mvprintw <const> = mvprintw
 local clear <const> = clear
 local refresh <const> = refresh
