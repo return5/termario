@@ -5,7 +5,6 @@ local mvprintw <const> = mvprintw
 local clear <const> = clear
 local refresh <const> = refresh
 local getch <const> = getch
-local drawBorder <const> = drawBorder
 
 
 local NcursesIO <const> = {}
@@ -26,10 +25,6 @@ end
 
 function NcursesIO.clear()
 	clear()
-end
-
-function NcursesIO.drawBorder(height,width)
-	drawBorder(height,width)
 end
 
 function NcursesIO.print(x,y,char)

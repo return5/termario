@@ -1,4 +1,5 @@
 local Object <const> = require('model.Object')
+local Dirs <const> = require('constant.Dirs')
 local setmetatable <const> = setmetatable
 local floor <const> = math.floor
 
@@ -27,8 +28,15 @@ function Body:applyAcceleration(newAcc,dt)
 	return self
 end
 
+local moveTranslate <const> = {
+	[Dirs.LEFT] = {[Dirs.LEFT] = Dirs.LEFT,[Dirs.RIGHT] = Dirs.STOP},
+	[Dirs.RIGHT] = {[Dirs.LEFT] = Dirs.STOP,[Dirs.RIGHT] = Dirs.RIGHT},
+	[Dirs.STOP] = {[Dirs.LEFT] = Dirs.LEFT,[Dirs.RIGHT] = Dirs.RIGHT}
+}
+
 function Body:move(dir)
-	self.dir = dir
+	local dirTbl = moveTranslate[self.xDir]
+	self.xDir = dirTbl[dir]
 	return self
 end
 
