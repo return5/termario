@@ -38,6 +38,15 @@ function Player:update(dt,world)
 	return self
 end
 
+
+function Player:reset(level)
+	self.x = 1
+	self.printX = 1
+	self.y = #level - 1
+	self.printY = self.y
+	return self
+end
+
 function Player:new(x,y,char,speed,xDir)
 	local player <const> = setmetatable(Body:new(x,y, char,speed,xDir),self)
 	player.acc = 0

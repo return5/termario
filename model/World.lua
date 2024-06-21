@@ -42,11 +42,17 @@ function World:getCharAt(x,y)
 	return self.level[y][x]
 end
 
-function World:new(level)
+function World:reset(level)
 	local maxY <const> = Ncurses.getMaxYX()
-	local maxWidth <const> = maxY >= Config.printWidth and Config.printWidth or maxY
-	local printWidth_half <const> = floor(maxWidth/ 2)
-	return setmetatable({level = level,printWidth_half = printWidth_half,maxWidth = maxWidth,offset = 0},self)
+	local printWidth_half <const> = floor(maxY/ 2)
+	self.printWidth_half = printWidth_half
+	self.maxWidth = maxY
+	self.level = level
+	return self
+end
+
+function World:new()
+	return setmetatable({level = {},printWidth_half = 0,maxWidth = 0,offset = 0},self)
 end
 
 return World
