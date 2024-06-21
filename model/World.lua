@@ -38,6 +38,10 @@ function World:print(player)
 	printWorld(self.level,start,stop,self.offset)
 end
 
+function World:getCharAt(x,y)
+	return self.level[y][x]
+end
+
 function World:new(level)
 	local maxY <const> = Ncurses.getMaxYX()
 	local maxWidth <const> = maxY >= Config.printWidth and Config.printWidth or maxY

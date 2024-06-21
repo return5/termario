@@ -6,9 +6,10 @@ Object.__index = Object
 
 _ENV = Object
 
-function Object:print()
-	NcurseIO.print(self.prevPrintX,self.prevPrintY," ")
-	NcurseIO.print(self.printX,self.printY,self.char)
+function Object:print(xOffset)
+	local xOffsetVal <const> = xOffset or 0
+	NcurseIO.print(self.prevPrintX - xOffsetVal,self.prevPrintY," ")
+	NcurseIO.print(self.printX - xOffsetVal,self.printY,self.char)
 	return self
 end
 
@@ -17,7 +18,7 @@ function Object:checkWithinBounds(startX,stopX)
 end
 
 function Object:new(x,y,char)
-	return setmetatable({x = x,y = y, char = char,printX = x, printY = y,prevPrintX = x,prevPrintY = y},self)
+	return setmetatable({x = x,y = y, char = char,printX = x, printY = y,prevPrintX = x,prevPrintY = y,prevX = x, prevY = y},self)
 
 end
 

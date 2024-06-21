@@ -14,17 +14,8 @@ function Body:checkBoundaries()
 	return true
 end
 
-function Body:print(offset)
-	self.printX = self.printX - offset
-	Object.print(self)
-	return self
-end
-
-function Body:applyAcceleration(newAcc,dt)
-	self.acc = self.acc + newAcc
-	self.y = self.y + self.acc * dt
-	self.prevPrintY = self.printY
-	self.printY = floor(self.y)
+function Body:print(xOffset)
+	Object.print(self,xOffset)
 	return self
 end
 
@@ -41,18 +32,17 @@ function Body:move(dir)
 end
 
 function Body:update(dt)
+	self.prevX = self.x
 	self.x = self.x + self.xDir * self.speed * dt
 	self.prevPrintX = self.printX
 	self.printX = floor(self.x)
 	return self
 end
 
-function Body:new(x,y,char,speed,xDir,dt)
+function Body:new(x,y,char,speed,xDir)
 	local body <const> = setmetatable(Object:new(x,y, char),self)
 	body.speed = speed
-	body.acc = 0
 	body.xDir = xDir
-	body.dt = dt
 	return body
 end
 
