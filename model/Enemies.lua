@@ -27,19 +27,7 @@ function Enemies:print()
 	self:loop(printEnemy)
 end
 
-local createEnemiesMap <const> = {
-
-}
-
-function Enemies:reset(level)
-	local enemies <const> = {}
-	for y = 1,#level,1 do
-		for x = 1,#level[y],1 do
-			if createEnemiesMap[level[y][x]] then
-				enemies[#enemies + 1] = createEnemiesMap[level[y][x]]()
-			end
-		end
-	end
+function Enemies:reset(enemies)
 	self.enemies = enemies
 end
 

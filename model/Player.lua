@@ -3,7 +3,6 @@ local Dirs <const> = require('constant.Dirs')
 local setmetatable <const> = setmetatable
 local floor <const> = math.floor
 
-
 local Player <const> = {}
 Player.__index = Player
 setmetatable(Player,Body)
@@ -26,7 +25,7 @@ function Player:checkIfCollideSolidObj(world)
 		self.printY = self.prevPrintY
 		self.y = self.prevY
 	end
-	if world:getCharAt(xVal + self.xDir,self.printY) == 2 then
+	if (self.printX == 1 and self.dir == Dirs.LEFT) or world:getCharAt(xVal + self.xDir,self.printY) == 2 then
 		self.xDir = Dirs.STOP
 	end
 	return self
@@ -37,7 +36,6 @@ function Player:update(dt,world)
 	self:checkIfCollideSolidObj(world)
 	return self
 end
-
 
 function Player:reset(level)
 	self.x = 1
