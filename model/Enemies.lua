@@ -11,7 +11,7 @@ function Enemies:loop(func,startX,stopX)
 	local xOffset <const> = startX - 1
 	for i=#self.enemies,1,-1 do
 		if self.enemies[i]:checkWithinBounds(startX,stopX) then
-			if not func(self.enemies[i],i,xOffset) then return false end
+			if func(self.enemies[i],i,xOffset) == false then return false end
 		end
 	end
 	return true
@@ -34,13 +34,23 @@ function Enemies:checkCollision(player,world)
 end
 
 local function printEnemy(enemy,_,xOffset)
-	enemy:print(xOffset)
-	return self
+	return enemy:print(xOffset)
 end
 
 function Enemies:print(world,player)
 	local leftLimit <const>, rightLimit <const> = world:getLimits(player)
 	self:loop(printEnemy,leftLimit,rightLimit)
+end
+
+local function updateEnemy(dt)
+	return function(enemy)
+		return enemy:update(dt)
+	end
+end
+
+function Enemies:update(dt,world,player)
+	local leftLimit <const>, rightLimit <const> = world:getLimits(player)
+	self:loop(updateEnemy(dt),leftLimit,rightLimit)
 end
 
 function Enemies:reset(enemies)

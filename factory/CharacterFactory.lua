@@ -9,13 +9,23 @@ _ENV = CharacterFactory
 
 
 local function makeRegularEnemy(x,y)
-	return RegularEnemy:new(x,y,"#",0,Dirs.LEFT)
+	return RegularEnemy:new(x,y,"#",2,Dirs.LEFT)
+end
+
+local function makeRegularEnemyRight(x,y)
+	return RegularEnemy:new(x,y,"#",2,Dirs.RIGHT)
+end
+
+local function makeJumpingEnemy(x,y)
+
 end
 
 
 --TODO
 local createEnemiesMap <const> = {
-	[3] = makeRegularEnemy
+	[4] = makeRegularEnemy,
+	[5] = makeRegularEnemyRight,
+	[6] = makeJumpingEnemy,
 }
 
 function CharacterFactory.generateEnemies(level)
@@ -24,7 +34,6 @@ function CharacterFactory.generateEnemies(level)
 		for x = 1,#level[y],1 do
 			if createEnemiesMap[level[y][x]] then
 				enemies[#enemies + 1] = createEnemiesMap[level[y][x]](x,y)
-				level[y][x] = 1
 			end
 		end
 	end

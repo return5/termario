@@ -1,4 +1,3 @@
-local Config <const> = require('constant.Config')
 local NcurseIO <const> = require('ncurses.NcurseIO')
 local Ncurses <const> = require('ncurses.Ncurses')
 local floor <const> = math.floor
@@ -9,14 +8,21 @@ World.__index = World
 
 _ENV = World
 
+local convertNumToChar <const> = {
+	[2] = "=",
+	[3] = "|"
+}
 
-local convertNumToChar <const> = {" ","=","|"}
+local function getChar(index)
+	if convertNumToChar[index] then return convertNumToChar[index] end
+	return " "
+end
 
 local function printWorld(level,start,stop,offset)
 	local printStop <const> = stop <= #level[1] and stop or #level[1]
 	for y=1,#level,1 do
 		for x=start,printStop,1 do
-			NcurseIO.print(x - offset,y,convertNumToChar[level[y][x]])
+			NcurseIO.print(x - offset,y,getChar(level[y][x]))
 		end
 	end
 end

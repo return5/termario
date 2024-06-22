@@ -21,37 +21,49 @@ local function input(player)
 	if userInput ~= nil then player:move(userInput) end
 end
 
-local function startLevel(world,player,enemies)
-	local level <const> = Levels.getLevel()
-	if  not level then
-		Levels:reset()
-		return startLevel(world,player,enemies)
-	end
-	world:reset(level)
-	player:reset(level)
-	enemies:reset(CharacterFactory.generateEnemies(level))
+local function update(player,world,enemies,dt)
+	player:update(dt,world)
+	enemies:update(dt,world,player)
 end
 
 local function loop(timer,gravity,player,world,enemies)
 	while continue do
 		gravity:applyGravity(player)
 		input(player)
-		player:update(timer:getDt(),world)
+		update(player,world,enemies,timer:getDt())
 		draw(player,world,enemies)
-		--continue = enemies:checkCollision(player,world)
+		continue = enemies:checkCollision(player,world)
 	end
 end
+
+local function startLevel(world,player,enemies,level)
+	world:reset(level)
+	player:reset(level)
+	enemies:reset(CharacterFactory.generateEnemies(level))
+	continue = true
+end
+
+local function loopOverLevels(timer,gravity,player,world,enemies)
+	while true do
+		local level <const> = Levels.getLevel()
+		if level == nil then
+			Levels:reset()
+			return loopOverLevels(timer,gravity,player,world,enemies)
+		end
+		startLevel(world,player,enemies,level)
+		loop(timer,gravity,player,world,enemies)
+	end
+end
+
 
 local function main()
 	Ncurses.init()
 	local timer <const> = Timer:new()
 	local gravity <const> = Gravity:new(0.05,3)
 	local player <const> = Player:new(0,0,"@",4,1)
---	player.acc = -4
 	local world <const> = World:new()
 	local enemies <const> = Enemies:new()
-	startLevel(world,player,enemies)
-	loop(timer,gravity,player,world,enemies)
+	loopOverLevels(timer,gravity,player,world,enemies)
 	Ncurses.tearDown()
 end
 

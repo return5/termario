@@ -1,6 +1,7 @@
 
+local level1 <const> = require('levels.Level1')
 
-local levelsArr <const> = {require('levels.Level1')}
+local levelsArr <const> = {level1}
 
 local function getLevel()
 	local i = 0
