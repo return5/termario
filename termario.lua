@@ -19,7 +19,7 @@ end
 
 local function input(player)
 	local userInput <const> = NcursesIO.getCh()
-	if userInput then player:move(userInput) end
+	if userInput ~= nil then player:move(userInput) end
 end
 
 local function startLevel(world,player,enemies)

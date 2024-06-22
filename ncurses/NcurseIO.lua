@@ -13,10 +13,9 @@ NcursesIO.__index = NcursesIO
 _ENV = NcursesIO
 
 local keysToDirsMap <const> = {
-	w = Dirs.UP,
-	s = Dirs.DOWN,
 	a = Dirs.LEFT,
-	d = Dirs.RIGHT
+	d = Dirs.RIGHT,
+	[' '] = Dirs.UP
 }
 
 function NcursesIO.refresh()
