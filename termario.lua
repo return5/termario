@@ -6,15 +6,14 @@ local Ncurses <const> = require('ncurses.Ncurses')
 local Levels <const> = require('levels.Levels')
 local World <const> = require('model.World')
 local Enemies <const> = require('model.Enemies')
+local CharacterFactory <const> = require('factory.CharacterFactory')
 
 local continue = true
 
 local function draw(player,world,enemies)
---	NcursesIO.clear()
 	world:print(player)
 	player:print(world.offset)
---	NcursesIO.refresh()
---	enemies:print()
+	enemies:print(world,player)
 end
 
 local function input(player)
@@ -30,7 +29,7 @@ local function startLevel(world,player,enemies)
 	end
 	world:reset(level)
 	player:reset(level)
-	enemies:reset(level)
+	enemies:reset(CharacterFactory.generateEnemies(level))
 end
 
 local function loop(timer,gravity,player,world,enemies)
@@ -39,6 +38,7 @@ local function loop(timer,gravity,player,world,enemies)
 		input(player)
 		player:update(timer:getDt(),world)
 		draw(player,world,enemies)
+		--continue = enemies:checkCollision(player,world)
 	end
 end
 
@@ -51,7 +51,7 @@ local function main()
 	local world <const> = World:new()
 	local enemies <const> = Enemies:new()
 	startLevel(world,player,enemies)
-	loop(timer,gravity,player,world)
+	loop(timer,gravity,player,world,enemies)
 	Ncurses.tearDown()
 end
 

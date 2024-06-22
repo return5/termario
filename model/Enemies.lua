@@ -8,9 +8,10 @@ _ENV = Enemies
 
 
 function Enemies:loop(func,startX,stopX)
+	local xOffset <const> = startX - 1
 	for i=#self.enemies,1,-1 do
 		if self.enemies[i]:checkWithinBounds(startX,stopX) then
-			if not func(self.enemies[i],i) then return false end
+			if not func(self.enemies[i],i,xOffset) then return false end
 		end
 	end
 	return true
@@ -32,8 +33,8 @@ function Enemies:checkCollision(player,world)
 	return self:loop(checkCollisions(player,self.enemies),leftLimit,rightLimit)
 end
 
-local function printEnemy(enemy)
-	enemy:print()
+local function printEnemy(enemy,_,xOffset)
+	enemy:print(xOffset)
 	return self
 end
 

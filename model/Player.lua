@@ -1,5 +1,6 @@
 local Body <const> = require('model.Body')
 local Dirs <const> = require('constant.Dirs')
+local NcurseIO <const> = require('ncurses.NcurseIO')
 local setmetatable <const> = setmetatable
 local floor <const> = math.floor
 

@@ -14,11 +14,6 @@ function Body:checkBoundaries()
 	return true
 end
 
-function Body:print(xOffset)
-	Object.print(self,xOffset)
-	return self
-end
-
 local xMoveTranslate <const> = {
 	[Dirs.LEFT] = {[Dirs.LEFT] = Dirs.LEFT,[Dirs.RIGHT] = Dirs.STOP},
 	[Dirs.RIGHT] = {[Dirs.LEFT] = Dirs.STOP,[Dirs.RIGHT] = Dirs.RIGHT},
