@@ -1,22 +1,13 @@
-local Body <const> = require('model.Body')
+local JumpingCharacter <const> = require('model.characters.JumpingCharacter')
 local Dirs <const> = require('constant.Dirs')
 local setmetatable <const> = setmetatable
 local floor <const> = math.floor
 
 local Player <const> = {}
 Player.__index = Player
-setmetatable(Player,Body)
+setmetatable(Player,JumpingCharacter)
 
 _ENV = Player
-
-function Player:applyAcceleration(newAcc,dt)
-	self.acc = self.acc + newAcc
-	self.prevY = self.y
-	self.y = self.y + self.acc * dt
-	self.prevPrintY = self.printY
-	self.printY = floor(self.y)
-	return self
-end
 
 function Player:checkIfCollideSolidObj(world)
 	local xVal <const> = floor(self.x)
@@ -32,7 +23,7 @@ function Player:checkIfCollideSolidObj(world)
 end
 
 function Player:update(dt,world)
-	Body.update(self,dt)
+	JumpingCharacter.update(self,dt)
 	self:checkIfCollideSolidObj(world)
 	return self
 end
@@ -46,8 +37,9 @@ function Player:reset(level)
 end
 
 function Player:new(x,y,char,speed,xDir)
-	local player <const> = setmetatable(Body:new(x,y, char,speed,xDir),self)
+	local player <const> = setmetatable(JumpingCharacter:new(x,y, char,speed,xDir,3),self)
 	player.acc = 0
+	player.score = 0
 	return player
 end
 

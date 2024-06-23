@@ -1,11 +1,11 @@
 local Timer <const> = require('model.Timer')
 local Gravity <const> = require('model.Gravity')
-local Player <const> = require('model.Player')
+local Player <const> = require('model.characters.Player')
 local NcursesIO <const> = require('ncurses.NcurseIO')
 local Ncurses <const> = require('ncurses.Ncurses')
 local Levels <const> = require('levels.Levels')
 local World <const> = require('model.World')
-local Enemies <const> = require('model.Enemies')
+local Enemies <const> = require('model.characters.Enemies')
 local CharacterFactory <const> = require('factory.CharacterFactory')
 
 local continue = true

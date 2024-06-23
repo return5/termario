@@ -21,6 +21,7 @@ local function checkCollisions(player,enemies)
 	return function(enemy,i)
 		if enemy:checkTopCollision(player) then
 			remove(enemies,i)
+			player.score = player.score + 10
 		elseif enemy:checkSideCollision(player) then
 			return false
 		end

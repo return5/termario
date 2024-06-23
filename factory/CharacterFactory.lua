@@ -1,5 +1,6 @@
 local Dirs <const> = require('constant.Dirs')
-local RegularEnemy <const> = require('model.RegularEnemy')
+local RegularEnemy <const> = require('model.characters.RegularCharacter')
+local JumpingEnemy <const> = require('model.characters.JumpingCharacter')
 
 local CharacterFactory <const> = {}
 CharacterFactory.__index = CharacterFactory
@@ -8,7 +9,7 @@ _ENV = CharacterFactory
 
 
 
-local function makeRegularEnemy(x,y)
+local function makeRegularEnemyLeft(x,y)
 	return RegularEnemy:new(x,y,"#",2,Dirs.LEFT)
 end
 
@@ -16,16 +17,27 @@ local function makeRegularEnemyRight(x,y)
 	return RegularEnemy:new(x,y,"#",2,Dirs.RIGHT)
 end
 
-local function makeJumpingEnemy(x,y)
+local function makeJumpingEnemyLeft(x,y)
+	return JumpingEnemy:new(x,y,"&",1,Dirs.LEFT)
+end
+
+local function makeJumpingEnemyRight(x,y)
+	return JumpingEnemy:new(x,y,"&",1,Dirs.RIGHT)
 
 end
 
+local function makeJumpingEnemyNoMove(x,y)
+	return JumpingEnemy:new(x,y,"&",1,Dirs.STOP)
+
+end
 
 --TODO
 local createEnemiesMap <const> = {
-	[4] = makeRegularEnemy,
+	[4] = makeRegularEnemyLeft,
 	[5] = makeRegularEnemyRight,
-	[6] = makeJumpingEnemy,
+	[6] = makeJumpingEnemyLeft,
+	[7] = makeJumpingEnemyRight,
+	[8] = makeJumpingEnemyNoMove,
 }
 
 function CharacterFactory.generateEnemies(level)

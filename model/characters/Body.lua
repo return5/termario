@@ -1,4 +1,4 @@
-local Object <const> = require('model.Object')
+local Object <const> = require('model.characters.Object')
 local Dirs <const> = require('constant.Dirs')
 local setmetatable <const> = setmetatable
 local floor <const> = math.floor
