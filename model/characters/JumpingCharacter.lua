@@ -39,7 +39,7 @@ end
 
 function JumpingCharacter:update(dt,world)
 	self:checkIfCollideSolidFloor(world)
-	return RegularCharacter.update(self,dt)
+	return RegularCharacter.update(self,dt,world)
 end
 
 local moveFunctions <const> = {

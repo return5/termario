@@ -8,18 +8,11 @@ setmetatable(Player,JumpingCharacter)
 
 _ENV = Player
 
-function Player:checkIfCollideWorldObj(world)
-	JumpingCharacter.checkIfCollideSolidFloor(self,world)
-	if self:checkIfCollideSolidObj(world) then
-		self.xDir = Dirs.STOP
-	end
-	return self
-end
-
 function Player:update(dt,world,gravity)
 	gravity:applyGravity(self)
-	JumpingCharacter.update(self,dt,world)
-	self:checkIfCollideWorldObj(world)
+	if JumpingCharacter.update(self,dt,world) then
+		self.xDir = Dirs.STOP
+	end
 	return self
 end
 
@@ -33,6 +26,7 @@ function Player:reset(level)
 	self.prevPrintY = self.printY
 	self.prevY = self.y
 	self.acc = 0
+	self.xDir = 0
 	return self
 end
 

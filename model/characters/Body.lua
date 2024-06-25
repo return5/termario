@@ -19,8 +19,8 @@ local xOppositeDirs <const> = {
 }
 
 function Body:checkIfCollideSolidObj(world)
-	if (self.printX == 1 and self.dir == Dirs.LEFT) or (self.printX == world.length and self.dir == Dirs.RIGHT) or world:getCharAt(self.printX,self.printY) == 2 then
-		self.dir = xOppositeDirs[self.dir]
+	if (self.printX < 1 and self.xDir == Dirs.LEFT) or (self.printX == world.length + 1 and self.xDir == Dirs.RIGHT) or world:getCharAt(self.printX,self.printY) == 2 then
+		self.xDir = xOppositeDirs[self.dir]
 		self.printX = self.prevPrintX
 		self.x = self.prevX
 		return true

@@ -16,6 +16,11 @@ function RegularCharacter:checkTopCollision(player)
 	return player.prevPrintY < self.printY and player.printY == self.printY and player.printX == self.printX and player.prevPrintX == self.printX
 end
 
+function RegularCharacter:update(dt,world)
+	Body.update(self,dt)
+	return self:checkIfCollideSolidObj(world)
+end
+
 function RegularCharacter:new(x,y,char,speed,xDir)
 	return setmetatable(Body:new(x,y,char,speed,xDir),self)
 end
