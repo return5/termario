@@ -13,13 +13,23 @@ function Gravity:applyGravity(body)
 	return self
 end
 
-function Gravity:hasTimeElapsed()
+function Gravity:setElapsed()
 	self.elapsed = self.elapsed + self.timer:getDt()
+	return self
+end
+
+function Gravity:hasTimeElapsed()
 	if self.elapsed >= self.elapsedTimer then
-		self.elapsed = 0
 		return true
 	end
 	return false
+end
+
+function Gravity:resetElapsed()
+	if self:hasTimeElapsed() then
+		self.elapsed = 0
+	end
+	return self
 end
 
 function Gravity:new(elapsedTimer,gravityAcc)

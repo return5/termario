@@ -9,6 +9,25 @@ setmetatable(Body,Object)
 
 _ENV = Body
 
+function Body:applyGravity()
+	return self
+end
+
+local xOppositeDirs <const> = {
+	[Dirs.LEFT] = Dirs.RIGHT,
+	[Dirs.RIGHT] = Dirs.LEFT
+}
+
+function Body:checkIfCollideSolidObj(world)
+	if (self.printX == 1 and self.dir == Dirs.LEFT) or (self.printX == world.length and self.dir == Dirs.RIGHT) or world:getCharAt(self.printX,self.printY) == 2 then
+		self.dir = xOppositeDirs[self.dir]
+		self.printX = self.prevPrintX
+		self.x = self.prevX
+		return true
+	end
+	return false
+end
+
 function Body:checkBoundaries()
 	--TODO
 	return true
@@ -26,15 +45,9 @@ function Body:moveX(dir)
 	return self
 end
 
-function Body:moveY()
-	self.acc = -4
-	return self
-end
-
 local moveFunctions <const> = {
 	[Dirs.LEFT] = Body.moveX,
 	[Dirs.RIGHT] = Body.moveX,
-	[Dirs.UP] = Body.moveY
 }
 
 function Body:move(dir)

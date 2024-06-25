@@ -54,11 +54,12 @@ function World:reset(level)
 	self.printWidth_half = printWidth_half
 	self.maxWidth = maxY
 	self.level = level
+	self.length = level and level[1] and #level[1] or 0
 	return self
 end
 
 function World:new()
-	return setmetatable({level = {},printWidth_half = 0,maxWidth = 0,offset = 0},self)
+	return setmetatable({level = {},printWidth_half = 0,maxWidth = 0,offset = 0,length = 0},self)
 end
 
 return World

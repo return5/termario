@@ -5,7 +5,7 @@ local NcursesIO <const> = require('ncurses.NcurseIO')
 local Ncurses <const> = require('ncurses.Ncurses')
 local Levels <const> = require('levels.Levels')
 local World <const> = require('model.World')
-local Enemies <const> = require('model.characters.Enemies')
+local Enemies <const> = require('model.Enemies')
 local CharacterFactory <const> = require('factory.CharacterFactory')
 
 local continue = true
@@ -16,21 +16,22 @@ local function draw(player,world,enemies)
 	enemies:print(world,player)
 end
 
-local function input(player)
+local function input(player,dt)
 	local userInput <const> = NcursesIO.getCh()
-	if userInput ~= nil then player:move(userInput) end
+	if userInput ~= nil then player:move(userInput,dt) end
 end
 
-local function update(player,world,enemies,dt)
-	player:update(dt,world)
-	enemies:update(dt,world,player)
+local function update(player,world,enemies,dt,gravity)
+	input(player,dt)
+	gravity:setElapsed()
+	player:update(dt,world,gravity)
+	enemies:update(dt,world,player,gravity)
+	gravity:resetElapsed()
 end
 
 local function loop(timer,gravity,player,world,enemies)
 	while continue do
-		gravity:applyGravity(player)
-		input(player)
-		update(player,world,enemies,timer:getDt())
+		update(player,world,enemies,timer:getDt(),gravity)
 		draw(player,world,enemies)
 		continue = enemies:checkCollision(player,world)
 	end

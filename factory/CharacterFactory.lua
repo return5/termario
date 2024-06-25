@@ -1,6 +1,6 @@
 local Dirs <const> = require('constant.Dirs')
 local RegularEnemy <const> = require('model.characters.RegularCharacter')
-local JumpingEnemy <const> = require('model.characters.JumpingCharacter')
+local JumpingEnemy <const> = require('model.characters.JumpingEnemy')
 
 local CharacterFactory <const> = {}
 CharacterFactory.__index = CharacterFactory
@@ -18,16 +18,16 @@ local function makeRegularEnemyRight(x,y)
 end
 
 local function makeJumpingEnemyLeft(x,y)
-	return JumpingEnemy:new(x,y,"&",1,Dirs.LEFT)
+	return JumpingEnemy:new(x,y,"&",1,Dirs.LEFT,-3,1)
 end
 
 local function makeJumpingEnemyRight(x,y)
-	return JumpingEnemy:new(x,y,"&",1,Dirs.RIGHT)
+	return JumpingEnemy:new(x,y,"&",1,Dirs.RIGHT,-3,1)
 
 end
 
 local function makeJumpingEnemyNoMove(x,y)
-	return JumpingEnemy:new(x,y,"&",1,Dirs.STOP)
+	return JumpingEnemy:new(x,y,"&",1,Dirs.STOP,-3,1)
 
 end
 

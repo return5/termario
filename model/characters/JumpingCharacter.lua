@@ -9,6 +9,16 @@ setmetatable(JumpingCharacter,RegularCharacter)
 
 _ENV = JumpingCharacter
 
+function JumpingCharacter:checkIfCollideSolidFloor(world)
+	local xVal <const> = floor(self.x)
+	if world:getCharAt(xVal,self.printY) == 2 then
+		self.acc = 0
+		self.printY = self.prevPrintY
+		self.y = self.prevY
+		return true
+	end
+	return false
+end
 
 function JumpingCharacter:applyAcceleration(newAcc,dt)
 	self.acc = self.acc + newAcc
@@ -27,17 +37,17 @@ function JumpingCharacter:applyGravity(gravity,dt)
 	return self:applyAcceleration(gravity,dt)
 end
 
-function JumpingCharacter:moveY()
-	self.acc = -self.jumpAcc
-	return self
+function JumpingCharacter:update(dt,world)
+	self:checkIfCollideSolidFloor(world)
+	return RegularCharacter.update(self,dt)
 end
 
 local moveFunctions <const> = {
-	[Dirs.UP] = JumpingCharacter.moveY
+	[Dirs.UP] = JumpingCharacter.jump
 }
 
-function JumpingCharacter:move(dir)
-	if moveFunctions[dir] then return moveFunctions[dir](self,dir) end
+function JumpingCharacter:move(dir,dt)
+	if moveFunctions[dir] then return moveFunctions[dir](self,dt) end
 	return RegularCharacter.move(self,dir)
 end
 
@@ -46,7 +56,7 @@ function JumpingCharacter:new(x,y,char,speed,xDir,jumpAcc,interval)
 	local jumpCharacter <const> = setmetatable(RegularCharacter:new(x,y,char,speed,xDir),self)
 	jumpCharacter.jumpAcc = jumpAcc
 	jumpCharacter.interval = interval
-	jumpCharacter.acc = jumpAcc
+	jumpCharacter.acc = 0
 	return jumpCharacter
 end
 
