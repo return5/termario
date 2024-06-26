@@ -1,0 +1,30 @@
+local Body <const> = require('model.characters.Body')
+local setmetatable <const> = setmetatable
+
+local NonJumpingCharacter <const> = {}
+NonJumpingCharacter.__index = NonJumpingCharacter
+setmetatable(NonJumpingCharacter,Body)
+
+_ENV = NonJumpingCharacter
+
+function NonJumpingCharacter:checkIfNotOverSolidGround(world)
+	if world:getCharAt(self.printX,self.printY + 1) ~= 2 then
+		self:moveOppositeX()
+		self.x = self.prevX
+		self.printX = self.prevPrintX
+	end
+	return self
+end
+
+function NonJumpingCharacter:update(dt,world)
+	if not Body.update(self,dt,world) then
+		return self:checkIfNotOverSolidGround(world)
+	end
+	return self
+end
+
+function NonJumpingCharacter:new(x,y,char,speed,xDir)
+	return setmetatable(Body:new(x,y,char,speed,xDir),self)
+end
+
+return NonJumpingCharacter

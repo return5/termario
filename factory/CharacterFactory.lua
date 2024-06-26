@@ -1,5 +1,5 @@
 local Dirs <const> = require('constant.Dirs')
-local RegularEnemy <const> = require('model.characters.RegularCharacter')
+local RegularEnemy <const> = require('model.characters.NonJumpingCharacter')
 local JumpingEnemy <const> = require('model.characters.JumpingEnemy')
 
 local CharacterFactory <const> = {}
@@ -31,7 +31,6 @@ local function makeJumpingEnemyNoMove(x,y)
 
 end
 
---TODO
 local createEnemiesMap <const> = {
 	[4] = makeRegularEnemyLeft,
 	[5] = makeRegularEnemyRight,

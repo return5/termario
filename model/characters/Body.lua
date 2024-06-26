@@ -18,9 +18,14 @@ local xOppositeDirs <const> = {
 	[Dirs.RIGHT] = Dirs.LEFT
 }
 
+function Body:moveOppositeX()
+	self.xDir = xOppositeDirs[self.xDir]
+	return self
+end
+
 function Body:checkIfCollideSolidObj(world)
 	if (self.printX < 1 and self.xDir == Dirs.LEFT) or (self.printX == world.length + 1 and self.xDir == Dirs.RIGHT) or world:getCharAt(self.printX,self.printY) == 2 then
-		self.xDir = xOppositeDirs[self.dir]
+		self:moveOppositeX()
 		self.printX = self.prevPrintX
 		self.x = self.prevX
 		return true
@@ -55,12 +60,20 @@ function Body:move(dir)
 	return self
 end
 
-function Body:update(dt)
+function Body:update(dt,world)
 	self.prevX = self.x
 	self.x = self.x + self.xDir * self.speed * dt
 	self.prevPrintX = self.printX
 	self.printX = floor(self.x)
-	return self
+	return self:checkIfCollideSolidObj(world)
+end
+
+function Body:checkSideCollision(body1)
+	return body1.printY == self.printY and body1.printX == self.printX
+end
+
+function Body:checkTopCollision(body1)
+	return body1.prevPrintY < self.printY and body1.printY == self.printY and body1.printX == self.printX and body1.prevPrintX == self.printX
 end
 
 function Body:new(x,y,char,speed,xDir)

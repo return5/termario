@@ -1,11 +1,11 @@
-local RegularCharacter <const> = require('model.characters.RegularCharacter')
+local Body <const> = require('model.characters.Body')
 local Dirs <const> = require('constant.Dirs')
 local setmetatable <const> = setmetatable
 local floor <const> = math.floor
 
 local JumpingCharacter <const> = {}
 JumpingCharacter.__index = JumpingCharacter
-setmetatable(JumpingCharacter,RegularCharacter)
+setmetatable(JumpingCharacter,Body)
 
 _ENV = JumpingCharacter
 
@@ -39,7 +39,7 @@ end
 
 function JumpingCharacter:update(dt,world)
 	self:checkIfCollideSolidFloor(world)
-	return RegularCharacter.update(self,dt,world)
+	return Body.update(self,dt,world)
 end
 
 local moveFunctions <const> = {
@@ -48,12 +48,12 @@ local moveFunctions <const> = {
 
 function JumpingCharacter:move(dir,dt)
 	if moveFunctions[dir] then return moveFunctions[dir](self,dt) end
-	return RegularCharacter.move(self,dir)
+	return Body.move(self,dir)
 end
 
 
 function JumpingCharacter:new(x,y,char,speed,xDir,jumpAcc,interval)
-	local jumpCharacter <const> = setmetatable(RegularCharacter:new(x,y,char,speed,xDir),self)
+	local jumpCharacter <const> = setmetatable(Body:new(x,y,char,speed,xDir),self)
 	jumpCharacter.jumpAcc = jumpAcc
 	jumpCharacter.interval = interval
 	jumpCharacter.acc = 0
