@@ -18,9 +18,9 @@ end
 
 function NonJumpingCharacter:update(dt,world)
 	if not Body.update(self,dt,world) then
-		return self:checkIfNotOverSolidGround(world)
+		self:checkIfNotOverSolidGround(world)
 	end
-	return self
+	return true
 end
 
 function NonJumpingCharacter:new(x,y,char,speed,xDir)

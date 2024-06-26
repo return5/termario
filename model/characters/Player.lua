@@ -31,7 +31,7 @@ function Player:reset(level)
 end
 
 function Player:new(x,y,char,speed,xDir)
-	local player <const> = setmetatable(JumpingCharacter:new(x,y, char,speed,xDir,-3),self)
+	local player <const> = setmetatable(JumpingCharacter:new(x,y, char,speed,xDir,-4),self)
 	player.acc = 0
 	player.score = 0
 	return player

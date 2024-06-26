@@ -39,6 +39,7 @@ end
 
 function JumpingCharacter:update(dt,world)
 	self:checkIfCollideSolidFloor(world)
+	if self.printY < 1 then return false end
 	return Body.update(self,dt,world)
 end
 

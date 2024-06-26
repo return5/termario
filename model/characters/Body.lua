@@ -33,11 +33,6 @@ function Body:checkIfCollideSolidObj(world)
 	return false
 end
 
-function Body:checkBoundaries()
-	--TODO
-	return true
-end
-
 local xMoveTranslate <const> = {
 	[Dirs.LEFT] = {[Dirs.LEFT] = Dirs.LEFT,[Dirs.RIGHT] = Dirs.STOP},
 	[Dirs.RIGHT] = {[Dirs.LEFT] = Dirs.STOP,[Dirs.RIGHT] = Dirs.RIGHT},

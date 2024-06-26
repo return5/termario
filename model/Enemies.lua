@@ -43,15 +43,18 @@ function Enemies:print(world,player)
 	self:loop(printEnemy,leftLimit,rightLimit)
 end
 
-local function updateEnemy(dt,world,gravity)
-	return function(enemy)
-		return enemy:update(dt,world,gravity)
+local function updateEnemy(dt,world,gravity,enemies)
+	return function(enemy,i)
+		if not enemy:update(dt,world,gravity) then
+			remove(enemies,i)
+		end
+		return true
 	end
 end
 
 function Enemies:update(dt,world,player,gravity)
 	local leftLimit <const>, rightLimit <const> = world:getLimits(player)
-	self:loop(updateEnemy(dt,world,gravity),leftLimit,rightLimit)
+	self:loop(updateEnemy(dt,world,gravity,self.enemies),leftLimit,rightLimit)
 end
 
 
