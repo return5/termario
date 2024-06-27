@@ -1,5 +1,5 @@
 require('libs.ncurses.sluacurses')
-local Brown <const> = Brown
+local Cyan <const> = Cyan
 local Magenta <const> = Magenta
 local Yellow <const> = Yellow
 local Blue <const> = Blue
@@ -8,7 +8,7 @@ local Green <const> = Green
 local Black <const> = Black
 
 return {
-	Brown = Brown,
+	Cyan = Cyan,
 	Magenta = Magenta,
 	Yellow = Yellow,
 	Blue = Blue,

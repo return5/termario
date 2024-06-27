@@ -188,6 +188,7 @@ static int l_init(__attribute__((unused)) lua_State * L) {
     noecho();
     nodelay(stdscr,1);
     curs_set(0);
+    start_color()
     refresh();
     return 0;
 }
