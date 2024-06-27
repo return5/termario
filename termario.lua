@@ -34,7 +34,7 @@ local function loop(timer,gravity,player,world,enemies)
 	while continue do
 		update(player,world,enemies,timer:getDt(),gravity)
 		draw(player,world,enemies)
-		continue = enemies:checkCollision(player,world)
+		continue = player:checkIfContinue(enemies,world)
 	end
 end
 
@@ -52,6 +52,7 @@ local function loopOverLevels(timer,gravity,player,world,enemies)
 			Levels:reset()
 			return loopOverLevels(timer,gravity,player,world,enemies)
 		end
+		NcursesIO.clear()
 		startLevel(world,player,enemies,level)
 		loop(timer,gravity,player,world,enemies)
 	end

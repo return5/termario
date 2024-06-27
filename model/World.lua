@@ -45,6 +45,7 @@ function World:print(player)
 end
 
 function World:getCharAt(x,y)
+	if not self.level[y] or not self.level[y][x] then return "" end
 	return self.level[y][x]
 end
 

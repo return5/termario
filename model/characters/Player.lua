@@ -10,21 +10,23 @@ _ENV = Player
 
 function Player:update(dt,world,gravity)
 	gravity:applyGravity(self)
-	if JumpingCharacter.update(self,dt,world) then
+	if not JumpingCharacter.update(self,dt,world) then
 		self.xDir = Dirs.STOP
 	end
 	return self
 end
 
+function Player:checkIfContinue(enemies,world)
+	if self.printY > world.height then return false end
+	if not enemies:checkCollision(self,world) then return false end
+	return true
+end
+
 function Player:reset(level)
 	self.x = 1
-	self.prevX = 1
 	self.printX = 1
-	self.prevPrintX = 1
 	self.y = #level - 1
 	self.printY = self.y
-	self.prevPrintY = self.printY
-	self.prevY = self.y
 	self.acc = 0
 	self.xDir = 0
 	return self
