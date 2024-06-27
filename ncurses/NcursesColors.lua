@@ -1,11 +1,11 @@
 require('libs.ncurses.sluacurses')
-local Cyan <const> = Cyan
-local Magenta <const> = Magenta
-local Yellow <const> = Yellow
-local Blue <const> = Blue
-local Red <const> = Red
-local Green <const> = Green
-local Black <const> = Black
+local Cyan <const> = COLOR_CYAN
+local Magenta <const> = COLOR_MAGENTA
+local Yellow <const> = COLOR_YELLOW
+local Blue <const> = COLOR_BLUE
+local Red <const> = COLOR_RED
+local Green <const> = COLOR_GREEN
+local Black <const> = COLOR_BLACK
 
 return {
 	Cyan = Cyan,

@@ -20,7 +20,7 @@ function Object:checkWithinBounds(startX,stopX)
 end
 
 function Object:new(x,y,char,color)
-	return setmetatable({x = x,y = y, char = char,printX = x, printY = y,prevPrintX = x,prevPrintY = y,prevX = x, prevY = y,color},self)
+	return setmetatable({x = x,y = y, char = char,printX = x, printY = y,prevPrintX = x,prevPrintY = y,prevX = x, prevY = y,color = color},self)
 
 end
 

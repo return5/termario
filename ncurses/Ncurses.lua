@@ -26,8 +26,8 @@ end
 function Ncurses.init()
 	init()
 	local counter = 1
-	for colorName, color in pairs(NcursesColors) do
-		Ncurses.ColorPairs[colorName] = counter
+	for _, color in pairs(NcursesColors) do
+		Ncurses.ColorPairs[color] = counter
 		init_pair(counter,color,NcursesColors.Black)
 		counter = counter + 1
 	end

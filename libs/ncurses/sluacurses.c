@@ -36,10 +36,8 @@ static int l_mvprintw(lua_State *L);
 static int l_color_set(lua_State *L);
 static int l_attron(lua_State *L);
 static int l_attroff(lua_State *L);
-static int l_printw(lua_State *L);
 static int l_refresh(__attribute__((unused)) lua_State *L);
 static int l_clear(__attribute__((unused)) lua_State *L) ;
-static int l_move(lua_State *L);
 static int l_getch(lua_State *L);
 static int l_init_pair(lua_State *L);
 static int l_start_color(__attribute__((unused)) lua_State *L);
@@ -118,24 +116,11 @@ static int l_refresh(__attribute__((unused)) lua_State *L) {
     return 0;
 }
 
-static int l_printw(lua_State *L) {
-    const char *const str = luaL_checkstring(L,-1);
-    printw(str);
-    return 0;
-}
-
 static int l_mvprintw(lua_State *L) {
     const int y = luaL_checknumber(L,1);
     const int x = luaL_checknumber(L,2);
     const char *const str = luaL_checkstring(L,3);
     mvprintw(y,x,str);
-    return 0;
-}
-
-static int l_move(lua_State *L) {
-    const int y = luaL_checknumber(L,1);
-    const int x = luaL_checknumber(L,2);
-    move(y,x);
     return 0;
 }
 
@@ -188,7 +173,7 @@ static int l_init(__attribute__((unused)) lua_State * L) {
     noecho();
     nodelay(stdscr,1);
     curs_set(0);
-    start_color()
+    start_color();
     refresh();
     return 0;
 }

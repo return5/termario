@@ -9,6 +9,7 @@ local getch <const> = getch
 local attron <const> = attron
 local attroff <const> = attroff
 local colorPair <const> = COLOR_PAIR
+local file = io.open("io.txt","w+")
 
 local NcursesIO <const> = {}
 NcursesIO.__index = NcursesIO
@@ -43,6 +44,7 @@ function NcursesIO.getCh()
 end
 
 function NcursesIO.turnOnColor(color)
+	file:write(color, " : ",NcursesColorPairs[color],"\n")
 	attron(colorPair(NcursesColorPairs[color]))
 	return NcursesIO
 end

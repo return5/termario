@@ -7,6 +7,7 @@ local Levels <const> = require('levels.Levels')
 local World <const> = require('model.World')
 local Enemies <const> = require('model.Enemies')
 local CharacterFactory <const> = require('factory.CharacterFactory')
+local NcursesColors <const> = require('ncurses.NcursesColors')
 
 local continue = true
 
@@ -61,7 +62,7 @@ local function main()
 	Ncurses.init()
 	local timer <const> = Timer:new()
 	local gravity <const> = Gravity:new(0.05,3)
-	local player <const> = Player:new(0,0,"@",4,1)
+	local player <const> = Player:new(0,0,"@",4,1,NcursesColors.Cyan)
 	local world <const> = World:new()
 	local enemies <const> = Enemies:new()
 	loopOverLevels(timer,gravity,player,world,enemies)

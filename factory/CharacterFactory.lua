@@ -11,24 +11,24 @@ _ENV = CharacterFactory
 
 
 local function makeRegularEnemyLeft(x,y)
-	return RegularEnemy:new(x,y,"#",2,Dirs.LEFT)
+	return RegularEnemy:new(x,y,"#",2,Dirs.LEFT,NcursesColors.Green)
 end
 
 local function makeRegularEnemyRight(x,y)
-	return RegularEnemy:new(x,y,"#",2,Dirs.RIGHT)
+	return RegularEnemy:new(x,y,"#",2,Dirs.RIGHT,NcursesColors.Green)
 end
 
 local function makeJumpingEnemyLeft(x,y)
-	return JumpingEnemy:new(x,y,"&",1,Dirs.LEFT,-3,1)
+	return JumpingEnemy:new(x,y,"&",1,Dirs.LEFT,-3,1,NcursesColors.Yellow)
 end
 
 local function makeJumpingEnemyRight(x,y)
-	return JumpingEnemy:new(x,y,"&",1,Dirs.RIGHT,-3,1)
+	return JumpingEnemy:new(x,y,"&",1,Dirs.RIGHT,-3,1,NcursesColors.Yellow)
 
 end
 
 local function makeJumpingEnemyNoMove(x,y)
-	return JumpingEnemy:new(x,y,"&",1,Dirs.STOP,-3,1)
+	return JumpingEnemy:new(x,y,"&",1,Dirs.STOP,-3,1,NcursesColors.Yellow)
 
 end
 
