@@ -16,6 +16,10 @@ function Player:update(dt,world,gravity)
 	return self
 end
 
+function Player:removeLife()
+	self.lives = self.lives - 1
+end
+
 function Player:checkIfContinue(enemies,world)
 	if self.printY > world.height then return false end
 	if not enemies:checkCollision(self,world) then return false end
@@ -36,6 +40,7 @@ function Player:new(x,y,char,speed,xDir,color)
 	local player <const> = setmetatable(JumpingCharacter:new(x,y, char,speed,xDir,-4,0,color),self)
 	player.acc = 0
 	player.score = 0
+	player.lives = 3
 	return player
 end
 

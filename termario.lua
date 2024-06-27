@@ -36,6 +36,7 @@ local function loop(timer,gravity,player,world,enemies)
 		draw(player,world,enemies)
 		continue = player:checkIfContinue(enemies,world)
 	end
+	player:removeLife()
 end
 
 local function startLevel(world,player,enemies,level)
@@ -46,7 +47,7 @@ local function startLevel(world,player,enemies,level)
 end
 
 local function loopOverLevels(timer,gravity,player,world,enemies)
-	while true do
+	while player.lives > 0 do
 		local level <const> = Levels.getLevel()
 		if level == nil then
 			Levels:reset()
