@@ -60,7 +60,7 @@ function Body:update(dt,world)
 	self.x = self.x + self.xDir * self.speed * dt
 	self.prevPrintX = self.printX
 	self.printX = floor(self.x)
-	return self:checkIfCollideSolidObj(world)
+	return not self:checkIfCollideSolidObj(world)
 end
 
 function Body:checkSideCollision(body1)
