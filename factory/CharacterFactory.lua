@@ -1,6 +1,7 @@
 local Dirs <const> = require('constant.Dirs')
 local RegularEnemy <const> = require('model.characters.NonJumpingCharacter')
 local JumpingEnemy <const> = require('model.characters.JumpingEnemy')
+local NcursesColors <const> = require('ncurses.NcursesColors')
 
 local CharacterFactory <const> = {}
 CharacterFactory.__index = CharacterFactory

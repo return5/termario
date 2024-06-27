@@ -53,8 +53,8 @@ function JumpingCharacter:move(dir,dt)
 end
 
 
-function JumpingCharacter:new(x,y,char,speed,xDir,jumpAcc,interval)
-	local jumpCharacter <const> = setmetatable(Body:new(x,y,char,speed,xDir),self)
+function JumpingCharacter:new(x,y,char,speed,xDir,jumpAcc,interval,color)
+	local jumpCharacter <const> = setmetatable(Body:new(x,y,char,speed,xDir,color),self)
 	jumpCharacter.jumpAcc = jumpAcc
 	jumpCharacter.interval = interval
 	jumpCharacter.acc = 0
