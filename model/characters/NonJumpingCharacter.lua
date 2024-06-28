@@ -23,8 +23,8 @@ function NonJumpingCharacter:update(dt,world)
 	return true
 end
 
-function NonJumpingCharacter:new(x,y,char,speed,xDir,color)
-	return setmetatable(Body:new(x,y,char,speed,xDir,color),self)
+function NonJumpingCharacter:new(x,y,char,speed,xDir,color,score)
+	return setmetatable(Body:new(x,y,char,speed,xDir,color,score),self)
 end
 
 return NonJumpingCharacter

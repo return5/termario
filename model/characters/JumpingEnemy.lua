@@ -24,8 +24,8 @@ function JumpingEnemy:update(dt,world,gravity)
 	return JumpingCharacter.update(self,dt,world)
 end
 
-function JumpingEnemy:new(x,y,char,speed,xDir,jumpAcc,interval,color)
-	local jumpingEnemy <const> = setmetatable(JumpingCharacter:new(x,y,char,speed,xDir,jumpAcc,interval,color),self)
+function JumpingEnemy:new(x,y,char,speed,xDir,jumpAcc,interval,color,score)
+	local jumpingEnemy <const> = setmetatable(JumpingCharacter:new(x,y,char,speed,xDir,jumpAcc,interval,color,score),self)
 	jumpingEnemy.dt = interval
 	return jumpingEnemy
 end

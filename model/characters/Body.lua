@@ -71,10 +71,11 @@ function Body:checkTopCollision(body1)
 	return body1.prevPrintY < self.printY and body1.printY == self.printY and body1.printX == self.printX and body1.prevPrintX == self.printX
 end
 
-function Body:new(x,y,char,speed,xDir,color)
+function Body:new(x,y,char,speed,xDir,color,score)
 	local body <const> = setmetatable(Object:new(x,y, char,color),self)
 	body.speed = speed
 	body.xDir = xDir
+	body.score = score
 	return body
 end
 
