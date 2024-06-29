@@ -9,6 +9,7 @@ local getch <const> = getch
 local attron <const> = attron
 local attroff <const> = attroff
 local colorPair <const> = COLOR_PAIR
+local printStr <const> = printstr
 
 local NcursesIO <const> = {}
 NcursesIO.__index = NcursesIO
@@ -28,7 +29,6 @@ end
 function NcursesIO.print(x,y,char)
 	mvprintw(y,x,char)
 	return NcursesIO
-
 end
 
 local keysToDirsMap <const> = {

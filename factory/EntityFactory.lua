@@ -10,7 +10,6 @@ EntityFactory.__index = EntityFactory
 
 _ENV = EntityFactory
 
-
 local function makeRegularEnemyLeft(x,y,enemies)
 	enemies[#enemies + 1] = RegularEnemy:new(x,y,"#",2,Dirs.LEFT,NcursesColors.Green,10)
 end
@@ -25,7 +24,6 @@ end
 
 local function makeJumpingEnemyRight(x,y,enemies)
 	enemies[#enemies + 1] = JumpingEnemy:new(x,y,"&",1,Dirs.RIGHT,-3,1,NcursesColors.Magenta,20)
-
 end
 
 local function makeJumpingEnemyNoMove(x,y,enemies)
