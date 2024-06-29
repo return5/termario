@@ -174,6 +174,7 @@ static int l_init(__attribute__((unused)) lua_State * L) {
     nodelay(stdscr,1);
     curs_set(0);
     start_color();
+    init_color(COLOR_YELLOW,700,700,98);
     refresh();
     return 0;
 }

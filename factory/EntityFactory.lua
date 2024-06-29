@@ -6,10 +6,9 @@ local Body <const> = require('model.characters.Body')
 
 
 local EntityFactory <const> = {}
-EntityFactory.__index = CharacterFactory
+EntityFactory.__index = EntityFactory
 
 _ENV = EntityFactory
-
 
 
 local function makeRegularEnemyLeft(x,y,enemies)
