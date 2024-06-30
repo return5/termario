@@ -60,8 +60,8 @@ local function getNewLevel(world,player,enemies,coins,infoPrinter)
 		Levels:reset()
 		return getNewLevel(world,player,enemies,coins,infoPrinter)
 	end
-	resetLevel(world,player,enemies,infoPrinter)
 	resetCoinsAndWorld(coins,world)
+	resetLevel(world,player,enemies,infoPrinter)
 end
 
 local function checkIfAtEnd(world,player,enemies,coins,infoPrinter)
