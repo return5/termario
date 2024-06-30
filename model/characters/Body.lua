@@ -24,7 +24,7 @@ function Body:moveOppositeX()
 end
 
 function Body:checkIfCollideSolidObj(world)
-	if (self.printX < 1 and self.xDir == Dirs.LEFT) or (self.printX == world.length + 1 and self.xDir == Dirs.RIGHT) or world:getCharAt(self.printX,self.printY) == 2 then
+	if (self.printX < 1 and self.xDir == Dirs.LEFT) or (self.printX == world.length + 1 and self.xDir == Dirs.RIGHT) or world:getCharAt(self.printX,self.printY) == "=" then
 		self:moveOppositeX()
 		self.printX = self.prevPrintX
 		self.x = self.prevX

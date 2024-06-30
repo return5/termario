@@ -11,7 +11,7 @@ _ENV = JumpingCharacter
 
 function JumpingCharacter:checkIfCollideSolidFloor(world)
 	local xVal <const> = floor(self.x)
-	if world:getCharAt(xVal,self.printY) == 2 then
+	if world:getCharAt(xVal,self.printY) == "=" then
 		self.acc = 0
 		self.printY = self.prevPrintY
 		self.y = self.prevY

@@ -6,6 +6,7 @@ local Blue <const> = COLOR_BLUE
 local Red <const> = COLOR_RED
 local Green <const> = COLOR_GREEN
 local Black <const> = COLOR_BLACK
+local White <const> = COLOR_WHITE
 
 return {
 	Cyan = Cyan,
@@ -14,5 +15,6 @@ return {
 	Blue = Blue,
 	Red = Red,
 	Green = Green,
-	Black = Black
+	Black = Black,
+	White = White
 }

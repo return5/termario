@@ -6,7 +6,7 @@ local Ncurses <const> = require('ncurses.Ncurses')
 local Levels <const> = require('levels.Levels')
 local World <const> = require('model.World')
 local Enemies <const> = require('model.collections.Collection')
-local CharacterFactory <const> = require('factory.EntityFactory')
+local EntityFactory <const> = require('factory.EntityFactory')
 local NcursesColors <const> = require('ncurses.NcursesColors')
 local Coins <const> = require('model.collections.Coins')
 local InfoPrinter <const> = require('model.utils.InfoPrinter')
@@ -38,17 +38,18 @@ end
 
 local function resetLevel(world,player,enemies,infoPrinter)
 	local level <const> = Levels.getCurrentLevel()
-	local enemyList <const> = CharacterFactory.generateEnemies(level)
-	world:reset(level)
+	local enemyList <const> = EntityFactory.generateEnemies(level)
 	player:reset(level)
 	enemies:reset(enemyList)
 	infoPrinter:reset(world)
 	continue = true
 end
 
-local function resetCoins(coins)
+local function resetCoinsAndWorld(coins,world)
 	local level <const> = Levels.getCurrentLevel()
-	local coinList <const> = CharacterFactory.generateCoins(level)
+	local coinList <const> = EntityFactory.generateCoins(level)
+	local levelMap <const> = EntityFactory.generateLevel(level)
+	world:reset(levelMap)
 	coins:reset(coinList)
 end
 
@@ -60,7 +61,7 @@ local function getNewLevel(world,player,enemies,coins,infoPrinter)
 		return getNewLevel(world,player,enemies,coins,infoPrinter)
 	end
 	resetLevel(world,player,enemies,infoPrinter)
-	resetCoins(coins)
+	resetCoinsAndWorld(coins,world)
 end
 
 local function checkIfAtEnd(world,player,enemies,coins,infoPrinter)

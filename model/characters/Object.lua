@@ -6,6 +6,10 @@ Object.__index = Object
 
 _ENV = Object
 
+function Object:isAtEnd()
+	return false
+end
+
 function Object:print(xOffset)
 	local xOffsetVal <const> = xOffset or 0
 	NcurseIO.turnOnColor(self.color)

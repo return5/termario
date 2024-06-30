@@ -1,4 +1,3 @@
-local NcurseIO <const> = require('ncurses.NcurseIO')
 local Ncurses <const> = require('ncurses.Ncurses')
 local Config <const> = require('constant.Config')
 local floor <const> = math.floor
@@ -9,28 +8,18 @@ World.__index = World
 
 _ENV = World
 
-local convertNumToChar <const> = {
-	[2] = "=",
-	[3] = "|",
-}
-
-local function getPrintableChar(index)
-	if convertNumToChar[index] then return convertNumToChar[index] end
-	return " "
-end
 
 local function printWorld(level,start,stop,offset)
 	local printStop <const> = stop <= #level[1] and stop or #level[1]
 	for y=1,#level,1 do
 		for x=start,printStop,1 do
-			NcurseIO.print(x - offset,y, getPrintableChar(level[y][x]))
+			level[y][x]:print(offset)
 		end
 	end
 end
 
 function World:isPlayerAtEnd(player)
-	if self:getCharAt(player.printX,player.printY) == 20 then return true end
-	return false
+	return self.level[player.printY + 1][player.printX]:isAtEnd()
 end
 
 function World:getLimits(player)
@@ -52,7 +41,7 @@ end
 
 function World:getCharAt(x,y)
 	if not self.level[y] or not self.level[y][x] then return "" end
-	return self.level[y][x]
+	return self.level[y][x].char
 end
 
 function World:reset(level)

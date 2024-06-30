@@ -8,7 +8,7 @@ setmetatable(NonJumpingCharacter,Body)
 _ENV = NonJumpingCharacter
 
 function NonJumpingCharacter:checkIfNotOverSolidGround(world)
-	if world:getCharAt(self.printX,self.printY + 1) ~= 2 then
+	if world:getCharAt(self.printX,self.printY + 1) ~= "=" then
 		self:moveOppositeX()
 		self.x = self.prevX
 		self.printX = self.prevPrintX
