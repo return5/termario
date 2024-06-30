@@ -16,9 +16,9 @@ local levelCounter = 0
 
 local function draw(player,world,enemies,coins,infoPrinter)
 	world:print(player)
+	coins:print(world,player)
 	player:print(world.offset)
 	enemies:print(world,player)
-	coins:print(world,player)
 	infoPrinter:print(player,levelCounter)
 end
 
@@ -68,6 +68,7 @@ local function loop(timer,gravity,player,world,enemies,coins,infoPrinter)
 		update(player,world,enemies,timer:getDt(),gravity,coins)
 		draw(player,world,enemies,coins,infoPrinter)
 		continue = player:checkIfContinue(enemies,world)
+		if world:isPlayerAtEnd(player) then getNewLevel(world,player,enemies,coins,infoPrinter) end
 	end
 	resetLevel(world,player,enemies,infoPrinter)
 end

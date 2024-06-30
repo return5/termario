@@ -11,10 +11,10 @@ _ENV = World
 
 local convertNumToChar <const> = {
 	[2] = "=",
-	[3] = "|"
+	[3] = "|",
 }
 
-local function getChar(index)
+local function getPrintableChar(index)
 	if convertNumToChar[index] then return convertNumToChar[index] end
 	return " "
 end
@@ -23,9 +23,14 @@ local function printWorld(level,start,stop,offset)
 	local printStop <const> = stop <= #level[1] and stop or #level[1]
 	for y=1,#level,1 do
 		for x=start,printStop,1 do
-			NcurseIO.print(x - offset,y,getChar(level[y][x]))
+			NcurseIO.print(x - offset,y, getPrintableChar(level[y][x]))
 		end
 	end
+end
+
+function World:isPlayerAtEnd(player)
+	if self:getCharAt(player.printX,player.printY) == 20 then return true end
+	return false
 end
 
 function World:getLimits(player)
