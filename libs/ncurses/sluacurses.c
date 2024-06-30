@@ -49,6 +49,7 @@ static int l_tearDown(__attribute__((unused)) lua_State * L);
 static int l_getTime(lua_State *L);
 static int l_getMaxYX(lua_State *L);
 static int l_drawBorder(lua_State * L);
+static int l_blockingInput(lua_State * L);
 
 //-------------------------------- code -------------------------------------------------------
 
@@ -69,6 +70,8 @@ static int addColorValue(lua_State *L) {
     lua_setglobal(L,"COLOR_CYAN");
     lua_pushinteger(L,COLOR_WHITE);
     lua_setglobal(L,"COLOR_WHITE");
+    lua_pushinteger(L,A_STANDOUT);
+    lua_setglobal(L,"A_STANDOUT");
     return 8;
 }
 
@@ -90,6 +93,7 @@ int luaopen_libs_ncurses_sluacurses(lua_State *L) {
     lua_register(L,"getTime",l_getTime);
     lua_register(L,"getMaxYX",l_getMaxYX);
     lua_register(L,"drawBorder",l_drawBorder);
+    lua_register(L,"blockingInput",l_blockingInput);
     return 0;
 }
 
@@ -176,6 +180,11 @@ static int l_init(__attribute__((unused)) lua_State * L) {
     start_color();
     init_color(COLOR_YELLOW,700,700,98);
     refresh();
+    return 0;
+}
+
+static int l_blockingInput(__attribute__((unused)) lua_State * L) {
+    nodelay(stdscr,0);
     return 0;
 }
 

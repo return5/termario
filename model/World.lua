@@ -1,5 +1,6 @@
 local NcurseIO <const> = require('ncurses.NcurseIO')
 local Ncurses <const> = require('ncurses.Ncurses')
+local Config <const> = require('constant.Config')
 local floor <const> = math.floor
 local setmetatable <const> = setmetatable
 
@@ -50,10 +51,10 @@ function World:getCharAt(x,y)
 end
 
 function World:reset(level)
-	local maxY <const> = Ncurses.getMaxYX()
-	local printWidth_half <const> = floor(maxY/ 2)
+	local _ <const>, maxX <const> = Ncurses.getMaxYX()
+	self.maxWidth = maxX <= Config.printWidth and maxX or Config.printWidth
+	local printWidth_half <const> = floor(self.maxWidth/ 2)
 	self.printWidth_half = printWidth_half
-	self.maxWidth = maxY
 	self.level = level
 	self.length = level and level[1] and #level[1] or 0
 	self.height = #level

@@ -39,7 +39,7 @@ end
 function Player:new(x,y,char,speed,xDir,color)
 	local player <const> = setmetatable(JumpingCharacter:new(x,y, char,speed,xDir,-4,0,color,0),self)
 	player.acc = 0
-	player.lives = 3
+	player.lives = 0
 	return player
 end
 

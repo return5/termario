@@ -6,6 +6,7 @@ local endWin <const> = endwin
 local getTime <const> = getTime
 local getMaxYX <const> = getMaxYX
 local init_pair <const> = init_pair
+local blockingInput <const> = blockingInput
 local pairs <const> = pairs
 
 local Ncurses <const> = {}
@@ -35,6 +36,11 @@ end
 
 function Ncurses.getMaxYX()
 	return getMaxYX()
+end
+
+function Ncurses.blockingInput()
+	blockingInput()
+	return Ncurses
 end
 
 return Ncurses

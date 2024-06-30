@@ -9,7 +9,7 @@ local getch <const> = getch
 local attron <const> = attron
 local attroff <const> = attroff
 local colorPair <const> = COLOR_PAIR
-local printStr <const> = printstr
+local standOut <const> = A_STANDOUT
 
 local NcursesIO <const> = {}
 NcursesIO.__index = NcursesIO
@@ -38,7 +38,11 @@ local keysToDirsMap <const> = {
 }
 
 function NcursesIO.getCh()
-	local ch <const> = getch()
+	return getch()
+end
+
+function NcursesIO.getInput()
+	local ch <const> = NcursesIO.getCh()
 	return keysToDirsMap[ch]
 end
 
@@ -50,6 +54,12 @@ end
 function NcursesIO.turnOffColor(color)
 	attroff(colorPair(NcursesColorPairs[color]))
 	return NcursesIO
+end
+
+function NcursesIO.turnOnStandOut()
+	attron(standOut)
+	return NcursesIO
+
 end
 
 return NcursesIO

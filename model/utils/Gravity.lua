@@ -1,4 +1,4 @@
-local Timer <const> = require('model.Timer')
+local Timer <const> = require('model.utils.Timer')
 local setmetatable <const> = setmetatable
 
 local Gravity <const> = {}

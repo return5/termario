@@ -1,15 +1,15 @@
-local Timer <const> = require('model.Timer')
-local Gravity <const> = require('model.Gravity')
+local Timer <const> = require('model.utils.Timer')
+local Gravity <const> = require('model.utils.Gravity')
 local Player <const> = require('model.characters.Player')
 local NcursesIO <const> = require('ncurses.NcurseIO')
 local Ncurses <const> = require('ncurses.Ncurses')
 local Levels <const> = require('levels.Levels')
 local World <const> = require('model.World')
-local Enemies <const> = require('model.Collection')
+local Enemies <const> = require('model.collections.Collection')
 local CharacterFactory <const> = require('factory.EntityFactory')
 local NcursesColors <const> = require('ncurses.NcursesColors')
-local Coins <const> = require('model.Coins')
-local InfoPrinter <const> = require('model.InfoPrinter')
+local Coins <const> = require('model.collections.Coins')
+local InfoPrinter <const> = require('model.utils.InfoPrinter')
 
 local continue = true
 local levelCounter = 0
@@ -23,7 +23,7 @@ local function draw(player,world,enemies,coins,infoPrinter)
 end
 
 local function input(player,dt)
-	local userInput <const> = NcursesIO.getCh()
+	local userInput <const> = NcursesIO.getInput()
 	if userInput ~= nil then player:move(userInput,dt) end
 end
 
@@ -70,6 +70,19 @@ local function loopOverLevels(timer,gravity,player,world,enemies,coins,infoPrint
 	end
 end
 
+local function displayGameOver(player)
+	local maxY, maxX <const> = Ncurses.getMaxYX()
+	local middleX <const> = math.floor(maxX / 2)
+	local middleY <const> = math.floor(maxY / 2)
+	NcursesIO.turnOnStandOut()
+	local scoreStr <const> = "Score " .. player.score
+	local scoreX <const> = math.floor(middleX - scoreStr:len() / 2)
+	NcursesIO.print(middleX,middleY,"Game Over.")
+			.print(scoreX,middleY + 2,scoreStr)
+			.print(scoreX,middleY + 3,"Level Reached: " .. levelCounter)
+	Ncurses.blockingInput()
+	NcursesIO.getCh()
+end
 
 local function main()
 	Ncurses.init()
@@ -81,6 +94,7 @@ local function main()
 	local coins <const> = Coins:new()
 	local infoPrinter <const> = InfoPrinter:new()
 	loopOverLevels(timer,gravity,player,world,enemies,coins,infoPrinter)
+	displayGameOver(player)
 	Ncurses.tearDown()
 end
 

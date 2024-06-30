@@ -1,4 +1,4 @@
-local Collection <const> = require('model.Collection')
+local Collection <const> = require('model.collections.Collection')
 local setmetatable <const> = setmetatable
 local remove <const> = table.remove
 
