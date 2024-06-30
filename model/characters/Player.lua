@@ -16,6 +16,11 @@ function Player:update(dt,world,gravity)
 	return self
 end
 
+function Player:jump(dt)
+	if self.acc ~= 0 then return self end
+	return JumpingCharacter.jump(self,dt)
+end
+
 function Player:removeLife()
 	self.lives = self.lives - 1
 end

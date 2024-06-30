@@ -63,12 +63,19 @@ local function getNewLevel(world,player,enemies,coins,infoPrinter)
 	resetCoins(coins)
 end
 
+local function checkIfAtEnd(world,player,enemies,coins,infoPrinter)
+	if world:isPlayerAtEnd(player) then
+		player.score = player.score + 50
+		getNewLevel(world,player,enemies,coins,infoPrinter)
+	end
+end
+
 local function loop(timer,gravity,player,world,enemies,coins,infoPrinter)
 	while continue do
 		update(player,world,enemies,timer:getDt(),gravity,coins)
 		draw(player,world,enemies,coins,infoPrinter)
 		continue = player:checkIfContinue(enemies,world)
-		if world:isPlayerAtEnd(player) then getNewLevel(world,player,enemies,coins,infoPrinter) end
+		checkIfAtEnd(world,player,enemies,coins,infoPrinter)
 	end
 	resetLevel(world,player,enemies,infoPrinter)
 end

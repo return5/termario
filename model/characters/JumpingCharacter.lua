@@ -44,7 +44,7 @@ function JumpingCharacter:update(dt,world)
 end
 
 local moveFunctions <const> = {
-	[Dirs.UP] = JumpingCharacter.jump
+	[Dirs.UP] = function(character,dt) return character:jump(dt)  end
 }
 
 function JumpingCharacter:move(dir,dt)

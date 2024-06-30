@@ -3,7 +3,7 @@ local RegularEnemy <const> = require('model.characters.NonJumpingCharacter')
 local JumpingEnemy <const> = require('model.characters.JumpingEnemy')
 local NcursesColors <const> = require('ncurses.NcursesColors')
 local Body <const> = require('model.characters.Body')
-
+local FlyingEnemy <const> = require('model.characters.FlyingEnemy')
 
 local EntityFactory <const> = {}
 EntityFactory.__index = EntityFactory
@@ -34,12 +34,22 @@ local function makeCoin(x,y)
 	return Body:new(x,y,"o",0,Dirs.STOP,NcursesColors.Yellow,25)
 end
 
+local function makeFlyingEnemyLeft(x,y)
+	return FlyingEnemy:new(x,y,"<",1,Dirs.LEFT,NcursesColors.Red,15)
+end
+
+local function makeFlyingEnemyRight(x,y)
+	return FlyingEnemy:new(x,y,">",1,Dirs.RIGHT,NcursesColors.Red,15)
+end
+
 local createEnemiesMap <const> = {
 	[4] = makeRegularEnemyLeft,
 	[5] = makeRegularEnemyRight,
 	[6] = makeJumpingEnemyLeft,
 	[7] = makeJumpingEnemyRight,
 	[8] = makeJumpingEnemyNoMove,
+	[10] = makeFlyingEnemyRight,
+	[11] = makeFlyingEnemyLeft
 }
 
 local createCoinsMap <const> = {
