@@ -10,28 +10,28 @@ EntityFactory.__index = EntityFactory
 
 _ENV = EntityFactory
 
-local function makeRegularEnemyLeft(x,y,enemies)
-	enemies[#enemies + 1] = RegularEnemy:new(x,y,"#",2,Dirs.LEFT,NcursesColors.Green,10)
+local function makeRegularEnemyLeft(x,y)
+	return RegularEnemy:new(x,y,"#",2,Dirs.LEFT,NcursesColors.Green,10)
 end
 
-local function makeRegularEnemyRight(x,y,enemies)
-	enemies[#enemies + 1] = RegularEnemy:new(x,y,"#",2,Dirs.RIGHT,NcursesColors.Green,10)
+local function makeRegularEnemyRight(x,y)
+	return RegularEnemy:new(x,y,"#",2,Dirs.RIGHT,NcursesColors.Green,10)
 end
 
-local function makeJumpingEnemyLeft(x,y,enemies)
-	enemies[#enemies + 1] = JumpingEnemy:new(x,y,"&",1,Dirs.LEFT,-3,1,NcursesColors.Magenta,20)
+local function makeJumpingEnemyLeft(x,y)
+	return JumpingEnemy:new(x,y,"&",1,Dirs.LEFT,-3,1,NcursesColors.Magenta,20)
 end
 
-local function makeJumpingEnemyRight(x,y,enemies)
-	enemies[#enemies + 1] = JumpingEnemy:new(x,y,"&",1,Dirs.RIGHT,-3,1,NcursesColors.Magenta,20)
+local function makeJumpingEnemyRight(x,y)
+	return JumpingEnemy:new(x,y,"&",1,Dirs.RIGHT,-3,1,NcursesColors.Magenta,20)
 end
 
-local function makeJumpingEnemyNoMove(x,y,enemies)
-	enemies[#enemies + 1] = JumpingEnemy:new(x,y,"&",1,Dirs.STOP,-3,1,NcursesColors.Magenta,20)
+local function makeJumpingEnemyNoMove(x,y)
+	return JumpingEnemy:new(x,y,"&",1,Dirs.STOP,-3,1,NcursesColors.Magenta,20)
 end
 
-local function makeCoin(x,y,_,coins)
-	coins[#coins + 1] = Body:new(x,y,"o",0,Dirs.STOP,NcursesColors.Yellow,25)
+local function makeCoin(x,y)
+	return Body:new(x,y,"o",0,Dirs.STOP,NcursesColors.Yellow,25)
 end
 
 local createEnemiesMap <const> = {
@@ -40,20 +40,31 @@ local createEnemiesMap <const> = {
 	[6] = makeJumpingEnemyLeft,
 	[7] = makeJumpingEnemyRight,
 	[8] = makeJumpingEnemyNoMove,
+}
+
+local createCoinsMap <const> = {
 	[0] = makeCoin
 }
 
-function EntityFactory.generateEnemies(level)
-	local enemies <const> = {}
-	local coins <const> = {}
+local function loopOverLevel(map, level)
+	local tbl <const> = {}
 	for y = 1,#level,1 do
 		for x = 1,#level[y],1 do
-			if createEnemiesMap[level[y][x]] then
-				 createEnemiesMap[level[y][x]](x,y,enemies,coins)
+			if map[level[y][x]] then
+				tbl[#tbl + 1 ] = map[level[y][x]](x,y)
 			end
 		end
 	end
-	return enemies,coins
+	return tbl
+end
+
+
+function EntityFactory.generateEnemies(level)
+	return loopOverLevel(createEnemiesMap,level)
+end
+
+function EntityFactory.generateCoins(level)
+	return loopOverLevel(createCoinsMap,level)
 end
 
 return EntityFactory

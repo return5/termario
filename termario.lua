@@ -36,36 +36,45 @@ local function update(player,world,enemies,dt,gravity,coins)
 	gravity:resetElapsed()
 end
 
+local function resetLevel(world,player,enemies,infoPrinter)
+	local level <const> = Levels.getCurrentLevel()
+	local enemyList <const> = CharacterFactory.generateEnemies(level)
+	world:reset(level)
+	player:reset(level)
+	enemies:reset(enemyList)
+	infoPrinter:reset(world)
+	continue = true
+end
+
+local function resetCoins(coins)
+	local level <const> = Levels.getCurrentLevel()
+	local coinList <const> = CharacterFactory.generateCoins(level)
+	coins:reset(coinList)
+end
+
+local function getNewLevel(world,player,enemies,coins,infoPrinter)
+	local level <const> = Levels.getNextLevel()
+	levelCounter = levelCounter + 1
+	if level == nil then
+		Levels:reset()
+		return getNewLevel(world,player,enemies,coins,infoPrinter)
+	end
+	resetLevel(world,player,enemies,infoPrinter)
+	resetCoins(coins)
+end
+
 local function loop(timer,gravity,player,world,enemies,coins,infoPrinter)
 	while continue do
 		update(player,world,enemies,timer:getDt(),gravity,coins)
 		draw(player,world,enemies,coins,infoPrinter)
 		continue = player:checkIfContinue(enemies,world)
 	end
-	player:removeLife()
-end
-
-local function startLevel(world,player,enemies,coins,level,infoPrinter)
-	local enemyList <const>, coinList <const> = CharacterFactory.generateEnemies(level)
-	world:reset(level)
-	player:reset(level)
-	enemies:reset(enemyList)
-	coins:reset(coinList)
-	infoPrinter:reset(world)
-	continue = true
+	resetLevel(world,player,enemies,infoPrinter)
 end
 
 local function loopOverLevels(timer,gravity,player,world,enemies,coins,infoPrinter)
 	while player.lives >= 0 do
-		local level <const> = Levels.getLevel()
-		levelCounter = levelCounter + 1
-		if level == nil then
-			Levels:reset()
-			levelCounter = 0
-			return loopOverLevels(timer,gravity,player,world,enemies,coins,infoPrinter)
-		end
 		NcursesIO.clear()
-		startLevel(world,player,enemies,coins,level,infoPrinter)
 		loop(timer,gravity,player,world,enemies,coins,infoPrinter)
 	end
 end
@@ -74,10 +83,10 @@ local function displayGameOver(player)
 	local maxY, maxX <const> = Ncurses.getMaxYX()
 	local middleX <const> = math.floor(maxX / 2)
 	local middleY <const> = math.floor(maxY / 2)
-	NcursesIO.turnOnStandOut()
 	local scoreStr <const> = "Score " .. player.score
 	local scoreX <const> = math.floor(middleX - scoreStr:len() / 2)
-	NcursesIO.print(middleX,middleY,"Game Over.")
+	NcursesIO.turnOnStandOut()
+			.print(middleX,middleY,"Game Over.")
 			.print(scoreX,middleY + 2,scoreStr)
 			.print(scoreX,middleY + 3,"Level Reached: " .. levelCounter)
 	Ncurses.blockingInput()
@@ -93,6 +102,7 @@ local function main()
 	local enemies <const> = Enemies:new()
 	local coins <const> = Coins:new()
 	local infoPrinter <const> = InfoPrinter:new()
+	getNewLevel(world,player,enemies,coins,infoPrinter)
 	loopOverLevels(timer,gravity,player,world,enemies,coins,infoPrinter)
 	displayGameOver(player)
 	Ncurses.tearDown()

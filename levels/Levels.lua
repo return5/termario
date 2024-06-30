@@ -1,14 +1,26 @@
 
 local level1 <const> = require('levels.Level1')
 
-local levelsArr <const> = {level1}
+local Levels <const> = {}
+Levels.__index = Levels
 
-local function getLevel()
-	local i = 0
-	return function()
-		i = i + 1
-		return levelsArr[i]
-	end
+_ENV = Levels
+
+local levelsArr <const> = {level1}
+local currentLevel = 0
+
+function Levels.getCurrentLevel()
+	return levelsArr[currentLevel]
 end
 
-return { getLevel = getLevel(), reset = function(self) self.getLevel = getLevel(); return self end }
+function Levels.getNextLevel()
+	currentLevel = currentLevel + 1
+	return Levels.getCurrentLevel()
+end
+
+function Levels.reset()
+	currentLevel = 0
+	return Levels
+end
+
+return Levels
