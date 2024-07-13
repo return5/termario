@@ -1,12 +1,12 @@
 
-local level1 <const> = require('levels.Level1')
+local levels <const> = require('levels.LevelsArray')
 
 local Levels <const> = {}
 Levels.__index = Levels
 
 _ENV = Levels
 
-local levelsArr <const> = {level1}
+local levelsArr <const> = levels
 local currentLevel = 0
 
 function Levels.getCurrentLevel()

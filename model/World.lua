@@ -10,8 +10,8 @@ _ENV = World
 
 
 local function printWorld(level,start,stop,offset)
-	local printStop <const> = stop <= #level[1] and stop or #level[1]
 	for y=1,#level,1 do
+		local printStop <const> = stop <= #level[1] and stop or #level[1]
 		for x=start,printStop,1 do
 			level[y][x]:print(offset)
 		end
@@ -19,7 +19,9 @@ local function printWorld(level,start,stop,offset)
 end
 
 function World:isPlayerAtEnd(player)
-	return self.level[player.printY + 1][player.printX]:isAtEnd()
+	local yArr <const> = self.level[player.printY + 1]
+	if not yArr then return false end
+	return yArr[player.printX]:isAtEnd()
 end
 
 function World:getLimits(player)

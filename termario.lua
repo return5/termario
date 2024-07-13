@@ -84,6 +84,7 @@ end
 local function loopOverLevels(timer,gravity,player,world,enemies,coins,infoPrinter)
 	while player.lives >= 0 do
 		NcursesIO.clear()
+		NcursesIO.refresh()
 		loop(timer,gravity,player,world,enemies,coins,infoPrinter)
 	end
 end

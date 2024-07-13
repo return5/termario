@@ -5,7 +5,7 @@ local NcursesColors <const> = require('ncurses.NcursesColors')
 local Body <const> = require('model.characters.Body')
 local FlyingEnemy <const> = require('model.characters.FlyingEnemy')
 local Object <const> = require('model.characters.Object')
-local Ending <const> = require('model.characters.Ending')
+local Ending <const> = require('model.Ending')
 
 local EntityFactory <const> = {}
 EntityFactory.__index = EntityFactory
@@ -37,11 +37,11 @@ local function makeCoin(x,y)
 end
 
 local function makeFlyingEnemyLeft(x,y)
-	return FlyingEnemy:new(x,y,"<",1,Dirs.LEFT,NcursesColors.Red,15)
+	return FlyingEnemy:new(x,y,"<",2,Dirs.LEFT,NcursesColors.Red,15)
 end
 
 local function makeFlyingEnemyRight(x,y)
-	return FlyingEnemy:new(x,y,">",1,Dirs.RIGHT,NcursesColors.Red,15)
+	return FlyingEnemy:new(x,y,">",2,Dirs.RIGHT,NcursesColors.Red,15)
 end
 
 local function createEmptySpace(x,y)
